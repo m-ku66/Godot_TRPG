@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3hib1kqriqq"]
+
+[ext_resource type="Script" uid="uid://c0yhfoquw7i1x" path="res://scripts/systems/CameraController.gd" id="1_g84ej"]
+[ext_resource type="PackedScene" uid="uid://dc7jwwj4bcrtb" path="res://scenes/terrain/Terrain.tscn" id="1_omw3i"]
+
+[node name="Battle" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 10)
+projection = 1
+script = ExtResource("1_g84ej")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Terrain" parent="." instance=ExtResource("1_omw3i")]

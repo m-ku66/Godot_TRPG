@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="TRPG_PROTOTYPE"
+run/main_scene="uid://d3hib1kqriqq"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://scripts/autoload/GameState.gd"
 
 [rendering]
 
