@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3hib1kqriqq"]
+[gd_scene load_steps=5 format=3 uid="uid://d3hib1kqriqq"]
 
 [ext_resource type="Script" uid="uid://c0yhfoquw7i1x" path="res://scripts/systems/CameraController.gd" id="1_g84ej"]
 [ext_resource type="Script" uid="uid://dgi7wikhmspgi" path="res://scripts/systems/Battle.gd" id="1_jnwmo"]
 [ext_resource type="PackedScene" uid="uid://dc7jwwj4bcrtb" path="res://scenes/terrain/Terrain.tscn" id="1_omw3i"]
+[ext_resource type="Script" uid="uid://7otwfqf8samw" path="res://scripts/systems/Terrain.gd" id="4_w6b63"]
 
 [node name="Battle" type="Node3D"]
 script = ExtResource("1_jnwmo")
@@ -18,3 +19,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.76234, 0)
 light_energy = 5.687
 
 [node name="Terrain" parent="." instance=ExtResource("1_omw3i")]
+script = ExtResource("4_w6b63")

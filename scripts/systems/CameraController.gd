@@ -14,7 +14,7 @@ var orbit_distance: float = 15.0
 
 func _ready():
 	# Set initial position
-	position = Vector3(20, 20, 20)
+	position = Vector3(40, 40, 40)
 	
 	# Set target position (where to look at)
 	target_position = Vector3.ZERO

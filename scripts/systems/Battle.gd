@@ -14,13 +14,13 @@ func _ready():
 	camera.size = 15  # Orthogonal size (zoom level)
 	
 	 # Add a visible marker at origin
-	var marker = MeshInstance3D.new()
-	var sphere = SphereMesh.new()
-	sphere.radius = 1.0
-	marker.mesh = sphere
-	
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color.BLUE
-	marker.material_override = material
-	
-	add_child(marker)
+	#var marker = MeshInstance3D.new()
+	#var sphere = SphereMesh.new()
+	#sphere.radius = 1.0
+	#marker.mesh = sphere
+	#
+	#var material = StandardMaterial3D.new()
+	#material.albedo_color = Color.BLUE
+	#marker.material_override = material
+	#
+	#add_child(marker)
