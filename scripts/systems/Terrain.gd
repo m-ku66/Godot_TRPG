@@ -2,9 +2,9 @@ extends Node3D
 
 # Configuration
 @export var width: int = 20
-@export var height: int = 10
+@export var height: int = 5
 @export var depth: int = 20
-@export var noise_scale: float = 30
+@export var noise_scale: float = 10
 
 # References
 @onready var game_state = get_node("/root/GameState")

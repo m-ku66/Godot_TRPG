@@ -5,16 +5,37 @@ class_name TerrainGenerator
 static func generate_terrain_grid(width: int, height: int, depth: int, noise_scale: float) -> Array:
 	var noise = FastNoiseLite.new()
 	noise.seed = randi()
-	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	 
+	# Choose from multiple noise types
+	var noise_types = [
+		FastNoiseLite.TYPE_SIMPLEX,
+		FastNoiseLite.TYPE_PERLIN, 
+		FastNoiseLite.TYPE_VALUE_CUBIC
+		]
+	noise.noise_type = noise_types[randi() % noise_types.size()]
+	
+	# Randomize fractal type too for even more variety
+	var fractal_types = [
+		FastNoiseLite.FRACTAL_NONE,
+		FastNoiseLite.FRACTAL_FBM,
+		FastNoiseLite.FRACTAL_RIDGED
+		]
+	noise.fractal_type = fractal_types[randi() % fractal_types.size()]
+	
+	# Randomize other parameters within reasonable ranges
+	noise.fractal_octaves = 3 + randi() % 4  # 3-6 octaves
 	
 	var x_offset = width / 2
 	var z_offset = depth / 2
 	var y_offset = height / 2
 	
 	var noise_amplitude = height
-	var octaves = 4
-	var persistence = 0.5
-	var lacunarity = 2.0
+	var octaves = 8
+	var persistence = 0.7
+	var lacunarity = 2.5
+	#var octaves = 6 + randi() % 3  # 4-6 octaves
+	#var persistence = 0.4 + randf() * 0.3  # 0.4-0.7
+	#var lacunarity = 1.8 + randf() * 0.7  # 1.8-2.5
 	
 	var cells = []
 	
