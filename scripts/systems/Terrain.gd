@@ -23,7 +23,8 @@ func generate_terrain():
 	
 	# Generate new terrain grid
 	var grid = TerrainGenerator.generate_terrain_grid(width, height, depth, noise_scale)
-	
+	print("Generated terrain with ", grid.size(), " cells")
+
 	# Update GameState
 	game_state.terrain.grid = grid
 	game_state.terrain.width = width

@@ -13,8 +13,16 @@ var target_position: Vector3 = Vector3.ZERO
 var orbit_distance: float = 15.0
 
 func _ready():
-	# Initial camera setup
+	# Set initial position
+	position = Vector3(20, 20, 20)
+	
+	# Set target position (where to look at)
+	target_position = Vector3.ZERO
+	
+	# Update the transform (this will make it look at the target)
 	update_camera_transform()
+	make_current()
+
 
 func _process(delta):
 	# Camera control logic will go here

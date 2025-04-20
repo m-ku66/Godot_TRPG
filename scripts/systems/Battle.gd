@@ -12,3 +12,15 @@ func _ready():
 	# Initial camera settings for tactical view
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 15  # Orthogonal size (zoom level)
+	
+	 # Add a visible marker at origin
+	var marker = MeshInstance3D.new()
+	var sphere = SphereMesh.new()
+	sphere.radius = 1.0
+	marker.mesh = sphere
+	
+	var material = StandardMaterial3D.new()
+	material.albedo_color = Color.BLUE
+	marker.material_override = material
+	
+	add_child(marker)

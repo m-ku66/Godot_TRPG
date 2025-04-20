@@ -6,10 +6,13 @@
 [node name="Battle" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 20, 20)
 projection = 1
+size = 15.0
 script = ExtResource("1_g84ej")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.76234, 0)
+light_energy = 5.687
 
 [node name="Terrain" parent="." instance=ExtResource("1_omw3i")]
