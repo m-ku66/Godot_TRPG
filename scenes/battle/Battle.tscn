@@ -17,6 +17,7 @@ script = ExtResource("1_g84ej")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.76234, 0)
 light_energy = 5.687
+directional_shadow_mode = 0
 
 [node name="Terrain" parent="." instance=ExtResource("1_omw3i")]
 script = ExtResource("4_w6b63")
