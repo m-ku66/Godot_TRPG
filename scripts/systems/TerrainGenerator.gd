@@ -25,9 +25,9 @@ static func generate_terrain_grid(width: int, height: int, depth: int, noise_sca
 	# Randomize other parameters within reasonable ranges
 	noise.fractal_octaves = 3 + randi() % 4  # 3-6 octaves
 	
-	var x_offset = width / 2
-	var z_offset = depth / 2
-	var y_offset = height / 2
+	var x_offset = width / 2.0
+	var z_offset = depth / 2.0
+	var y_offset = height / 2.0
 	
 	var noise_amplitude = height
 	var octaves = 8
