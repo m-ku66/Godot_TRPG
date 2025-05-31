@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnn6obumm0a6o"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nsxc1"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_e3b5r"]
+
+[node name="Unit" type="Node3D"]
+
+[node name="visuals" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03931, 0)
+mesh = SubResource("CapsuleMesh_nsxc1")
+
+[node name="SelectionIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 0.02, 0, 0, 0, 1.5, 0, 0.02, 0)
+mesh = SubResource("CylinderMesh_e3b5r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
