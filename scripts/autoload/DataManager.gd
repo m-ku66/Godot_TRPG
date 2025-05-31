@@ -37,10 +37,10 @@ func _initialize_data_loading():
 	
 	# Load in dependency order
 	var success = true
-	success &= _load_units_from_json()
-	success &= _load_class_templates()
-	success &= _load_skill_templates()
-	success &= _load_equipment_templates()
+	success = success and _load_units_from_json()
+	success = success and _load_class_templates()
+	success = success and _load_skill_templates()
+	success = success and _load_equipment_templates()
 	
 	is_data_loaded = success
 	
