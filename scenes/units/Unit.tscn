@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnn6obumm0a6o"]
+[gd_scene load_steps=4 format=3 uid="uid://cnn6obumm0a6o"]
+
+[ext_resource type="Script" uid="uid://woh3wba0iwn2" path="res://scenes/units/Unit.gd" id="1_e3b5r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nsxc1"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_e3b5r"]
 
 [node name="Unit" type="Node3D"]
+script = ExtResource("1_e3b5r")
 
-[node name="visuals" type="Node3D" parent="."]
+[node name="Visuals" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="visuals"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03931, 0)
 mesh = SubResource("CapsuleMesh_nsxc1")
 
