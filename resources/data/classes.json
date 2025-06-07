@@ -1,0 +1,78 @@
+{
+  "warrior_class": {
+	"id": "warrior_class",
+	"name": "Warrior",
+	"description": "A sturdy frontline fighter",
+	"max_level": 10,
+	"max_proficiency": 5,
+	"active_skills": [],
+	"passive_skills": [],
+	"reaction_skills": [],
+	"stat_modifiers": {
+	  "hp": 1.2,
+	  "maxHp": 1.2,
+	  "patk": 1.3,
+	  "sp": 1.0,
+	  "maxSp": 1.0,
+	  "def": 1.2,
+	  "matk": 0.7,
+	  "mp": 0.8,
+	  "maxMp": 0.8,
+	  "res": 0.9,
+	  "range": 0.0,
+	  "skill": 1.0,
+	  "wis": 0.8,
+	  "luck": 1.0,
+	  "agi": 0.9,
+	  "mov": 0.0,
+	  "jump": 0.0,
+	  "spRegenRate": 1.0,
+	  "mpRegenRate": 0.8,
+	  "hpRegenRate": 0.0
+	},
+	"attribute_modifiers": {
+	  "hitRate": 0.15,
+	  "healRate": 0.0,
+	  "bluntAttack": 0.1,
+	  "resolve": 0.2
+	}
+  },
+  "mage_class": {
+	"id": "mage_class",
+	"name": "Mage", 
+	"description": "A powerful magic wielder",
+	"max_level": 10,
+	"max_proficiency": 5,
+	"active_skills": [],
+	"passive_skills": [],
+	"reaction_skills": [],
+	"stat_modifiers": {
+	  "hp": 0.8,
+	  "maxHp": 0.8,
+	  "patk": 0.7,
+	  "sp": 0.9,
+	  "maxSp": 0.9,
+	  "def": 0.8,
+	  "matk": 1.4,
+	  "mp": 1.3,
+	  "maxMp": 1.3,
+	  "res": 1.2,
+	  "range": 1.0,
+	  "skill": 0.9,
+	  "wis": 1.3,
+	  "luck": 1.1,
+	  "agi": 0.8,
+	  "mov": 0.0,
+	  "jump": 0.0,
+	  "spRegenRate": 0.9,
+	  "mpRegenRate": 1.2,
+	  "hpRegenRate": 0.0
+	},
+	"attribute_modifiers": {
+	  "hitRate": -0.05,
+	  "healRate": 0.2,
+	  "evasionRate": 0.08,
+	  "resolve": 0.1
+	}
+  }
+}

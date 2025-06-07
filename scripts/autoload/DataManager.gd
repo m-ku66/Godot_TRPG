@@ -35,18 +35,19 @@ func _initialize_data_loading():
 	
 	print("[DataManager] Starting data initialization...")
 	
-	# Load in dependency order
+	# Load in dependency order - classes first, then units that reference them
 	var success = true
-	success = success and _load_units_from_json()
-	success = success and _load_class_templates()
-	success = success and _load_skill_templates()
-	success = success and _load_equipment_templates()
+	success = success and _load_class_templates()      # Load classes first
+	success = success and _load_skill_templates()      # Then skills
+	success = success and _load_equipment_templates()  # Then equipment
+	success = success and _load_units_from_json()      # Finally units (which reference classes)
 	
 	is_data_loaded = success
 	
 	if success:
 		print("[DataManager] Data loading completed successfully")
 		print("[DataManager] Loaded %d unit templates" % unit_templates.size())
+		print("[DataManager] Loaded %d class templates" % class_templates.size())
 	else:
 		push_error("[DataManager] Data loading completed with errors: " + str(loading_errors))
 	
@@ -94,12 +95,35 @@ func _load_units_from_json() -> bool:
 # ============================================================================
 
 func _load_class_templates() -> bool:
-	return _load_templates_from_directory(
-		"res://resources/class_templates",
-		"ClassTemplate",
-		class_templates,
-		"class templates"
-	)
+	const FILE_PATH = "res://resources/data/classes.json"
+	
+	print("[DataManager] Loading class templates from: " + FILE_PATH)
+	
+	# Load and parse JSON
+	var json_data = _load_json_file(FILE_PATH)
+	if json_data.is_empty():
+		print("[DataManager] No classes.json found, continuing without class templates")
+		return true  # Not critical for basic functionality
+	
+	# Process each class template
+	var loaded_count = 0
+	for class_id in json_data:
+		var class_data = json_data[class_id]
+		
+		# Validate required fields
+		if not _validate_class_data(class_id, class_data):
+			continue
+		
+		# Create template
+		var template = _create_class_template_from_data(class_data)
+		if template:
+			class_templates[class_id] = template
+			loaded_count += 1
+		else:
+			_add_loading_error("Failed to create class template: " + class_id)
+	
+	print("[DataManager] Successfully loaded %d/%d class templates" % [loaded_count, json_data.size()])
+	return loaded_count >= 0  # Allow 0 classes for minimal functionality
 
 func _load_skill_templates() -> bool:
 	return _load_templates_from_directory(
@@ -169,6 +193,16 @@ func _validate_unit_data(unit_id: String, data: Dictionary) -> bool:
 	
 	return true
 
+func _validate_class_data(class_id: String, data: Dictionary) -> bool:
+	var required_fields = ["id", "name", "stat_modifiers"]
+	
+	for field in required_fields:
+		if not data.has(field):
+			_add_loading_error("Class '%s' missing required field: %s" % [class_id, field])
+			return false
+	
+	return true
+
 # ============================================================================
 # TEMPLATE CREATION
 # ============================================================================
@@ -208,6 +242,32 @@ func _create_unit_template_from_data(data: Dictionary) -> UnitTemplate:
 	
 	return template
 
+
+func _create_class_template_from_data(data: Dictionary) -> ClassTemplate:
+	var template = ClassTemplate.new()
+	
+	# Basic Properties
+	template.id = _get_string(data, "id", "")
+	template.name = _get_string(data, "name", "")
+	template.description = _get_string(data, "description", "")
+	template.max_level = _get_int(data, "max_level", 10)
+	template.max_proficiency = _get_int(data, "max_proficiency", 5)
+	
+	# Stat modifiers
+	if data.has("stat_modifiers"):
+		template.stat_modifiers = _sanitize_dictionary(data["stat_modifiers"])
+	
+	# Attribute modifiers
+	if data.has("attribute_modifiers"):
+		_merge_attributes(template.attribute_modifiers, data["attribute_modifiers"])
+	
+	# Skills (for future implementation)
+	# We'll leave these empty for now since we haven't implemented skill loading yet
+	template.active_skills = []
+	template.passive_skills = []
+	template.reaction_skills = []
+	
+	return template
 # ============================================================================
 # TYPE CONVERSION UTILITIES
 # ============================================================================
