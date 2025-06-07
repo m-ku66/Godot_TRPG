@@ -21,15 +21,21 @@ var current_path_index: int = 0
 # Reference to game systems
 @onready var game_state = get_node("/root/GameState")
 
-# Called when the node enters the scene tree
+# Flag to track if we need to update visuals after _ready
+var pending_visual_update: bool = false
+
 func _ready():
 	# Initialize
 	selection_indicator.visible = false
 	
 	# Connect to signals if needed
 	if game_state:
-		# Add signal connections here later. Pass for now
 		pass
+	
+	# Update visuals if we have pending data
+	if pending_visual_update:
+		update_visuals()
+		pending_visual_update = false
 
 # Initialize with unit data
 func initialize(instance: UnitInstance, start_position: Vector3):
@@ -39,15 +45,18 @@ func initialize(instance: UnitInstance, start_position: Vector3):
 	# Set initial grid position
 	grid_position = Vector3i(start_position)
 	
-	# Set unit appearance based on type/class
-	update_visuals()
+	# Check if nodes are ready, if not, flag for later update
+	if mesh_instance:
+		update_visuals()
+	else:
+		pending_visual_update = true
 	
 	# Position in the world
 	position = Vector3(start_position.x, start_position.y + 0.5, start_position.z)
 
 # Update the unit's visual representation based on its type/class
 func update_visuals():
-	if not unit_instance:
+	if not unit_instance or not mesh_instance:
 		return
 		
 	# For prototype: Use simple colored meshes based on unit type/class
