@@ -13,6 +13,8 @@
 	"weapon_types": ["sword", "axe"],
 	"can_dual_wield": false,
 	"max_bond_level": 10,
+	"starting_class": "warrior_class",
+	"available_classes": ["warrior_class"],
 	"base_stats": {
 	  "lvl": 1,
 	  "exp": 0,
@@ -69,7 +71,7 @@
 	"name": "Test Mage",
 	"description": "A basic mage for testing",
 	"rarity": "common",
-	"model_id": "mage_01", 
+	"model_id": "mage_01",
 	"race": "human",
 	"origin": "Magic Academy",
 	"personality": ["intelligent", "cautious"],
@@ -78,6 +80,8 @@
 	"weapon_types": ["staff", "wand"],
 	"can_dual_wield": false,
 	"max_bond_level": 10,
+	"starting_class": "mage_class",
+	"available_classes": ["mage_class"],
 	"base_stats": {
 	  "lvl": 1,
 	  "exp": 0,

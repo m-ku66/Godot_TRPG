@@ -59,23 +59,26 @@ func update_visuals():
 	if not unit_instance or not mesh_instance:
 		return
 		
-	# For prototype: Use simple colored meshes based on unit type/class
 	var material = StandardMaterial3D.new()
 	
-	# Set color based on unit type (just examples for now)
-	match unit_instance.template.id.split("_")[0]:
-		"warrior":
-			material.albedo_color = Color(0.8, 0.2, 0.2) # Red
-		"archer":
-			material.albedo_color = Color(0.2, 0.8, 0.2) # Green
-		"mage":
-			material.albedo_color = Color(0.2, 0.2, 0.8) # Blue
-		"healer":
-			material.albedo_color = Color(0.8, 0.8, 0.2) # Yellow
-		"rogue":
-			material.albedo_color = Color(0.8, 0.2, 0.8) # Purple
-		_:
-			material.albedo_color = Color(0.7, 0.7, 0.7) # Gray default
+	# Use class-based coloring instead of ID parsing
+	if unit_instance.current_class:
+		match unit_instance.current_class.id:
+			"warrior_class":
+				material.albedo_color = Color(0.8, 0.2, 0.2) # Red
+			"mage_class":
+				material.albedo_color = Color(0.2, 0.2, 0.8) # Blue
+			"archer_class":
+				material.albedo_color = Color(0.2, 0.8, 0.2) # Green
+			"healer_class":
+				material.albedo_color = Color(0.8, 0.8, 0.2) # Yellow
+			"rogue_class":
+				material.albedo_color = Color(0.8, 0.2, 0.8) # Purple
+			_:
+				material.albedo_color = Color(0.7, 0.7, 0.7) # Gray default
+	else:
+		# Fallback to gray if no class assigned
+		material.albedo_color = Color(0.5, 0.5, 0.5) # Dark gray for unclassed
 	
 	mesh_instance.material_override = material
 	
