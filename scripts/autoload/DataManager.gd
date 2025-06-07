@@ -261,11 +261,14 @@ func _create_class_template_from_data(data: Dictionary) -> ClassTemplate:
 	if data.has("attribute_modifiers"):
 		_merge_attributes(template.attribute_modifiers, data["attribute_modifiers"])
 	
-	# Skills (for future implementation)
-	# We'll leave these empty for now since we haven't implemented skill loading yet
-	template.active_skills = []
-	template.passive_skills = []
-	template.reaction_skills = []
+	# Skills - Create properly typed empty arrays for now
+	# Since we don't have skills implemented yet, we'll just initialize as empty
+	template.active_skills = Array([], TYPE_OBJECT, "Resource", null)
+	template.passive_skills = Array([], TYPE_OBJECT, "Resource", null)
+	template.reaction_skills = Array([], TYPE_OBJECT, "Resource", null)
+	
+	# Future: When we implement skills, we can load them like this:
+	# template.active_skills = _convert_skill_ids_to_resources(data.get("active_skills", []))
 	
 	return template
 # ============================================================================
