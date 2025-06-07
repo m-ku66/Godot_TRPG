@@ -240,6 +240,23 @@ func _create_unit_template_from_data(data: Dictionary) -> UnitTemplate:
 	if data.has("attribute_growth_rates"):
 		_merge_attributes(template.attribute_growth_rates, data["attribute_growth_rates"])
 	
+	# CLASS LINKING
+	if data.has("starting_class"):
+		var class_id = _get_string(data, "starting_class", "")
+		if class_id != "" and class_templates.has(class_id):
+			template.starting_class = class_templates[class_id]
+			print("[DataManager] Linked unit '%s' to starting class '%s'" % [template.id, class_id])
+		else:
+			_add_loading_error("Unit '%s' references unknown starting class: %s" % [template.id, class_id])
+	
+	if data.has("available_classes"):
+		var available_class_ids = data.get("available_classes", [])
+		for class_id in available_class_ids:
+			if class_templates.has(class_id):
+				template.available_classes.append(class_templates[class_id])
+			else:
+				_add_loading_error("Unit '%s' references unknown available class: %s" % [template.id, class_id])
+	
 	return template
 
 
