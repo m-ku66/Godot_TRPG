@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnn6obumm0a6o"]
+[gd_scene load_steps=5 format=3 uid="uid://cnn6obumm0a6o"]
 
 [ext_resource type="Script" uid="uid://woh3wba0iwn2" path="res://scenes/units/Unit.gd" id="1_e3b5r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nsxc1"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_e3b5r"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e3b5r"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_e3b5r"]
 
 [node name="Unit" type="Node3D"]
 script = ExtResource("1_e3b5r")
@@ -15,8 +17,14 @@ script = ExtResource("1_e3b5r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03931, 0)
 mesh = SubResource("CapsuleMesh_nsxc1")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04178, 0)
+shape = SubResource("CapsuleShape3D_e3b5r")
+
 [node name="SelectionIndicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 0.02, 0, 0, 0, 1.5, 0, 0.02, 0)
-mesh = SubResource("CylinderMesh_e3b5r")
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.40003, 0)
+mesh = SubResource("SphereMesh_e3b5r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -90,10 +90,56 @@ func create_test_units():
 	
 	print("Total units created: ", units_created)
 
-# Optional: Add this for debugging
 func _input(event):
+	# Handle mouse clicks for unit selection
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			handle_mouse_click(event.position)
+	
+	# Keep the existing debug functionality  
 	if event.is_action_pressed("ui_accept"):  # Spacebar
 		print("=== DEBUG INFO ===")
 		print("Terrain cells: ", GameState.terrain.grid.size())
 		print("Unit templates loaded: ", DataManager.unit_templates.keys())
 		print("Units in manager: ", unit_manager.units.size())
+
+func handle_mouse_click(mouse_pos: Vector2):
+	# Step 1: Create ray from camera through mouse position
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_direction = camera.project_ray_normal(mouse_pos)
+	print("Mouse ray origin: ", ray_origin, "Mouse ray direction: ", ray_direction)
+
+	
+	# Step 2: Cast ray into world space to find click position
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_direction * 1000)
+	var result = space_state.intersect_ray(query)
+	print("Ray query: ", query)
+	print("Ray result: ", result)
+	
+	# Step 3: Find the closest unit to the click position
+	if result:
+		var click_world_pos = result.position
+		var closest_unit = find_closest_unit_to_position(click_world_pos)
+		
+		if closest_unit:
+			unit_manager.select_unit(closest_unit)
+			print("Selected unit: ", closest_unit.unit_id)
+		else:
+			unit_manager.deselect_unit()
+			print("Clicked terrain at: ", click_world_pos)
+
+func find_closest_unit_to_position(world_pos: Vector3) -> Node3D:
+	print("find_closest_unit_to_position reached...")
+	var closest_unit = null
+	var closest_distance = 2.0  # Maximum selection distance
+	
+	for unit_id in unit_manager.units:
+		var unit = unit_manager.units[unit_id]
+		var distance = unit.position.distance_to(world_pos)
+		
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_unit = unit
+	
+	return closest_unit
