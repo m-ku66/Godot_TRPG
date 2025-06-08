@@ -39,14 +39,15 @@ func generate_terrain():
 	game_state.emit_signal("terrain_generated", grid)
 
 func render_terrain():
-	# Remove existing terrain meshes
+	# Remove existing terrain meshes AND collision
 	for mesh_id in cell_meshes:
 		if is_instance_valid(cell_meshes[mesh_id]):
 			cell_meshes[mesh_id].queue_free()
 	cell_meshes.clear()
 	
-	# Create new meshes for each cell
+	# Create new meshes AND collision for each cell
 	for cell in game_state.terrain.grid:
+		# Create the visual mesh (existing code)
 		var mesh_instance = MeshInstance3D.new()
 		var box_mesh = BoxMesh.new()
 		box_mesh.size = Vector3(1, 1, 1)
@@ -58,11 +59,21 @@ func render_terrain():
 		mesh_instance.mesh = box_mesh
 		mesh_instance.material_override = material
 		mesh_instance.position = Vector3(cell.x, cell.y, cell.z)
-		
-		# Add to scene
 		add_child(mesh_instance)
-		
-		# Store reference
+
+		# NEW: Only create collision for traversable cells!
+		if cell.traversable:
+			var static_body = StaticBody3D.new()
+			var collision_shape = CollisionShape3D.new()
+			var box_shape = BoxShape3D.new()
+			box_shape.size = Vector3(1, 1, 1)
+			
+			collision_shape.shape = box_shape
+			static_body.add_child(collision_shape)
+			static_body.position = Vector3(cell.x, cell.y, cell.z)
+			add_child(static_body)
+				
+		# Store reference (just the visual mesh for now)
 		var cell_id = "%d,%d,%d" % [cell.x, cell.y, cell.z]
 		cell_meshes[cell_id] = mesh_instance
 
