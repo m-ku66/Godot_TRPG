@@ -107,15 +107,15 @@ func handle_mouse_click(mouse_pos: Vector2):
 	# Step 1: Create ray from camera through mouse position
 	var ray_origin = camera.project_ray_origin(mouse_pos)
 	var ray_direction = camera.project_ray_normal(mouse_pos)
-	print("Mouse ray origin: ", ray_origin, "Mouse ray direction: ", ray_direction)
+	#print("Mouse ray origin: ", ray_origin, "Mouse ray direction: ", ray_direction)
 
 	
 	# Step 2: Cast ray into world space to find click position
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_direction * 1000)
 	var result = space_state.intersect_ray(query)
-	print("Ray query: ", query)
-	print("Ray result: ", result)
+	#print("Ray query: ", query)
+	#print("Ray result: ", result)
 	
 	# Step 3: Find the closest unit to the click position
 	if result:
@@ -130,9 +130,9 @@ func handle_mouse_click(mouse_pos: Vector2):
 			print("Clicked terrain at: ", click_world_pos)
 
 func find_closest_unit_to_position(world_pos: Vector3) -> Node3D:
-	print("find_closest_unit_to_position reached...")
+	#print("find_closest_unit_to_position reached...")
 	var closest_unit = null
-	var closest_distance = 2.0  # Maximum selection distance
+	var closest_distance = 3.0  # Maximum selection distance
 	
 	for unit_id in unit_manager.units:
 		var unit = unit_manager.units[unit_id]
